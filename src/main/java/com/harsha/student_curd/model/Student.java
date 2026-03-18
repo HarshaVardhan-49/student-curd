@@ -1,9 +1,19 @@
 package com.harsha.student_curd.model;
 
+import jakarta.persistence.*;
+
+@Entity
+@Table(name = "student")
 public class Student {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String name;
     private int age;
+
+    public Student(){
+
+    }
 
     public Student(int id, String name,int age){
         this.id = id;
