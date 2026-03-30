@@ -10,6 +10,9 @@ public class Student {
     private int id;
     private String name;
     private int age;
+    @ManyToOne
+    @JoinColumn (name = "course_id")
+    private Course course;
 
     public Student(){
 
@@ -30,6 +33,7 @@ public class Student {
     public int getAge(){
         return age;
     }
+    public Course getCourse(){return course;}
 
     public void setId(int id){
         this.id = id;
@@ -40,4 +44,5 @@ public class Student {
     public void setAge(int age){
         this.age = age;
     }
+    public void setCourse(Course course){this.course = course;}
 }

@@ -1,6 +1,7 @@
 package com.harsha.student_curd.controller;
 
 import com.harsha.student_curd.model.Student;
+import com.harsha.student_curd.service.CourseService;
 import com.harsha.student_curd.service.StudentService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,8 +13,10 @@ import java.util.List;
 @RequestMapping("/students")
 public class StudentController {
   StudentService studentService;
-  public StudentController(StudentService studentService){
+  CourseService courseService;
+  public StudentController(StudentService studentService,CourseService courseService){
       this.studentService = studentService;
+      this.courseService = courseService;
   }
 
   @GetMapping
@@ -45,4 +48,14 @@ public class StudentController {
     public ResponseEntity<String> deleteStudent(@PathVariable int id){
       return ResponseEntity.ok(studentService.deleteStudent(id));
   }
+    @PutMapping("/{studentId}/enroll/{courseId}")
+    public ResponseEntity<Student> enrollStudent(
+            @PathVariable int studentId,
+            @PathVariable int courseId) {
+        Student student = studentService.enrollStudent(studentId, courseId);
+        if (student == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+        return ResponseEntity.ok(student);
+    }
 }

@@ -1,5 +1,6 @@
 package com.harsha.student_curd.service;
 
+import com.harsha.student_curd.model.Course;
 import com.harsha.student_curd.model.Student;
 import com.harsha.student_curd.repository.StudentRepository;
 import org.springframework.stereotype.Service;
@@ -15,8 +16,11 @@ public class StudentService {
 //    ));
 
     StudentRepository studentRepository;
-    public StudentService(StudentRepository studentRepository){
+    CourseService courseService;
+
+    public StudentService(StudentRepository studentRepository, CourseService courseService) {
         this.studentRepository = studentRepository;
+        this.courseService = courseService;
     }
 
     public List<Student> getStudents(){
@@ -45,6 +49,17 @@ public class StudentService {
             studentRepository.deleteById(id);
             return "Student" + id + " deleted";
         }
+    }
+    public Student enrollStudent(int studentId, int courseId) {
+        Student student = getStudentById(studentId);
+        Course course = courseService.getCourseById(courseId);
+
+        if (student == null || course == null) {
+            return null;
+        }
+
+        student.setCourse(course);
+        return studentRepository.save(student);
     }
 
 }
