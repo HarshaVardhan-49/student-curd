@@ -1,9 +1,11 @@
 package com.harsha.student_curd.service;
 
+import com.harsha.student_curd.exception.StudentNotFoundException;
 import com.harsha.student_curd.model.Course;
 import com.harsha.student_curd.model.Student;
 import com.harsha.student_curd.repository.StudentRepository;
 import org.springframework.stereotype.Service;
+
 
 import java.util.List;
 
@@ -27,7 +29,8 @@ public class StudentService {
         return studentRepository.findAll();
     }
     public Student getStudentById(int id){
-        return studentRepository.findById(id).orElse(null);
+
+        return studentRepository.findById(id).orElseThrow(()-> new StudentNotFoundException("Student with id"+id+"not Found!"));
     }
     public Student addStudent(Student student){
         //students.add(student);
