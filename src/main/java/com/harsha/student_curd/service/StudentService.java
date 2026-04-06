@@ -6,7 +6,6 @@ import com.harsha.student_curd.model.Student;
 import com.harsha.student_curd.repository.StudentRepository;
 import org.springframework.stereotype.Service;
 
-
 import java.util.List;
 
 @Service
@@ -53,6 +52,23 @@ public class StudentService {
             return "Student" + id + " deleted";
         }
     }
+
+    public List<Student> getStudentsByName(String name) {
+        return studentRepository.findByName(name);
+    }
+
+    public List<Student> getStudentsByAge(int age) {
+        return studentRepository.findByAge(age);
+    }
+
+    public List<Student> getStudentsOlderThan(int age) {
+        return studentRepository.findByAgeGreaterThan(age);
+    }
+
+    public List<Student> searchStudentsByName(String name) {
+        return studentRepository.findByNameContaining(name);
+    }
+
     public Student enrollStudent(int studentId, int courseId) {
         Student student = getStudentById(studentId);
         Course course = courseService.getCourseById(courseId);

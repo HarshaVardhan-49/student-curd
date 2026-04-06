@@ -1,5 +1,6 @@
 package com.harsha.student_curd.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.util.ArrayList;
@@ -12,14 +13,19 @@ public class Course {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int courseId;
     private String courseTitle;
-    @OneToMany(mappedBy = "course", cascade = CascadeType.ALL)
-    private List<Student> students = new ArrayList<>();
+//    @OneToMany(mappedBy = "course", cascade = CascadeType.ALL)
+//    private List<Student> students = new ArrayList<>();
 
     public Course(){}
     public Course(int courseId,String courseTitle){
         this.courseId = courseId;
         this.courseTitle = courseTitle;
     }
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "course", cascade = CascadeType.ALL)
+    private List<Student> students = new ArrayList<>();
+
     public int getCourseId(){return courseId;}
     public String getCourseTitle(){return courseTitle;}
     public List<Student> getStudents(){return students;}

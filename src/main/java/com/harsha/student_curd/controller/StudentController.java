@@ -48,6 +48,30 @@ public class StudentController {
     public ResponseEntity<String> deleteStudent(@PathVariable int id){
       return ResponseEntity.ok(studentService.deleteStudent(id));
   }
+
+    // search by name (exact)
+    @GetMapping("/search")
+    public ResponseEntity<List<Student>> getByName(@RequestParam String name) {
+        return ResponseEntity.ok(studentService.getStudentsByName(name));
+    }
+
+    // find by age
+    @GetMapping("/age")
+    public ResponseEntity<List<Student>> getByAge(@RequestParam int age) {
+        return ResponseEntity.ok(studentService.getStudentsByAge(age));
+    }
+
+    // find older than
+    @GetMapping("/older")
+    public ResponseEntity<List<Student>> getOlderThan(@RequestParam int age) {
+        return ResponseEntity.ok(studentService.getStudentsOlderThan(age));
+    }
+
+    // search by name
+    @GetMapping("/search/{name}")
+    public ResponseEntity<List<Student>> searchByName(@PathVariable String name) {
+        return ResponseEntity.ok(studentService.searchStudentsByName(name));
+    }
     @PutMapping("/{studentId}/enroll/{courseId}")
     public ResponseEntity<Student> enrollStudent(
             @PathVariable int studentId,
