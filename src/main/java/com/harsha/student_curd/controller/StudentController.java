@@ -72,6 +72,30 @@ public class StudentController {
     public ResponseEntity<List<Student>> searchByName(@PathVariable String name) {
         return ResponseEntity.ok(studentService.searchStudentsByName(name));
     }
+
+    // custom query - find by name
+    @GetMapping("/query/name")
+    public ResponseEntity<List<Student>> getByNameQuery(@RequestParam String name) {
+        return ResponseEntity.ok(studentService.getStudentsByNameQuery(name));
+    }
+
+    // custom query - older than
+    @GetMapping("/query/older")
+    public ResponseEntity<List<Student>> getOlderThanQuery(@RequestParam int age) {
+        return ResponseEntity.ok(studentService.getStudentsOlderThanQuery(age));
+    }
+
+    // custom query - search by name
+    @GetMapping("/query/search")
+    public ResponseEntity<List<Student>> searchByNameQuery(@RequestParam String name) {
+        return ResponseEntity.ok(studentService.searchStudentsByNameQuery(name));
+    }
+
+    // native query - find by course title
+    @GetMapping("/query/course")
+    public ResponseEntity<List<Student>> getByCourseTitle(@RequestParam String title) {
+        return ResponseEntity.ok(studentService.getStudentsByCourseTitle(title));
+    }
     @PutMapping("/{studentId}/enroll/{courseId}")
     public ResponseEntity<Student> enrollStudent(
             @PathVariable int studentId,

@@ -69,6 +69,22 @@ public class StudentService {
         return studentRepository.findByNameContaining(name);
     }
 
+    public List<Student> getStudentsByNameQuery(String name) {
+        return studentRepository.findStudentByName(name);
+    }
+
+    public List<Student> getStudentsOlderThanQuery(int age) {
+        return studentRepository.findStudentsOlderThan(age);
+    }
+
+    public List<Student> searchStudentsByNameQuery(String name) {
+        return studentRepository.searchByName(name);
+    }
+
+    public List<Student> getStudentsByCourseTitle(String title) {
+        return studentRepository.findByCourseTitle(title);
+    }
+
     public Student enrollStudent(int studentId, int courseId) {
         Student student = getStudentById(studentId);
         Course course = courseService.getCourseById(courseId);
